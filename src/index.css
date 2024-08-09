@@ -17,3 +17,164 @@ body {
 .section {
     padding: 3rem 0;
 }
+#root {
+    height: 100vh;
+}
+.main-container {
+    height: 100%;
+    display: flex;
+    padding: 2rem 0;
+    gap: 1rem;
+}
+.chat-rooms-region,
+.messages-region {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+.chat-rooms-region {
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.messages-region {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-room-image {
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.chat-room {
+    display: flex;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.chat-room-name {
+    font-weight: 500;
+    color: #444;
+}
+.chat-room.active {
+    background-color: #eee;
+}
+.chat-room-link.active {
+}
+.chat-room-link {
+    text-decoration: none;
+}
+.chat-room-details {
+    padding: 0.5rem 0;
+}
+
+.message {
+    /* min-height: 2rem; */
+    border-radius: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+.message.message-left {
+    flex-direction: row-reverse;
+}
+.message.message-left .message-text {
+    background-color: deepskyblue;
+    color: #fff;
+}
+.message-text {
+    min-height: 2rem;
+    background-color: #eee;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-picture {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.messages-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.messages-display {
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-form {
+    height: 3rem;
+    min-width: 0;
+    width: 100%;
+    border: none;
+    background-color: #eee;
+    border-radius: 1000px;
+    font-family: Montserrat;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    position: relative;
+}
+
+.input-form:hover .input-box:not(.input-box:focus) {
+    border: 1px solid #777;
+}
+.input-box {
+    height: 100%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    width: 100%;
+    border-radius: 1000px;
+    padding-left: 1rem;
+    font-size: 14px;
+}
+
+.btn-submit {
+    color: #555;
+    right: 0.5rem;
+    border: none;
+    position: absolute;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+.btn:active {
+    transform: scale(0.9);
+}
+.input-box:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.5);
+}
+.input-box:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.5);
+}
+
+.send-icon {
+    height: 100%;
+    width: 100%;
+    color: rgba(0, 100, 255, 1);
+}

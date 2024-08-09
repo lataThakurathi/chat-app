@@ -1,9 +1,12 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { UserProvider } from "./contexts/UserContext";
+import ChatRooms from "./components/ChatRooms";
+import Layout from "./components/Layout"; // Import the Layout component
+import MessagesDisplay from "./components/MessagesDisplay";
 import { ChatRoomProvider } from "./contexts/ChatRoomContext";
 import { MessageProvider } from "./contexts/MessageContext";
-import Layout from "./components/Layout"; // Import the Layout component
+import { UserProvider } from "./contexts/UserContext";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
     {
@@ -12,11 +15,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>Home Page</div>,
+                element: <Home />,
             },
             {
-                path: "/chat/:roomId",
-                element: <div>Chat Room Page</div>,
+                path: "/chat-rooms",
+                children: [
+                    { index: true, element: <ChatRooms /> },
+                    {
+                        path: ":id",
+                        element: <MessagesDisplay />,
+                    },
+                ],
             },
             {
                 path: "/profile",

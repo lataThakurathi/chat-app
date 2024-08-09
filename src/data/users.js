@@ -2,7 +2,7 @@ const users = [
     {
         id: 1,
         username: "user1",
-        profilePicture: "url_to_profile_pic",
+        profilePicture: "/chat-rooms/img10.jpg",
         preferences: {
             theme: "light",
             notifications: true,
@@ -11,7 +11,7 @@ const users = [
     {
         id: 2,
         username: "user2",
-        profilePicture: "url_to_profile_pic",
+        profilePicture: "/chat-rooms/img12.jpg",
         preferences: {
             theme: "dark",
             notifications: true,

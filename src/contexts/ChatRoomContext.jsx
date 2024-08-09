@@ -7,11 +7,13 @@ export const ChatRoomProvider = ({ children }) => {
         {
             id: 1,
             name: "General",
+            chatRoomPicture: "/chat-rooms/img7.jpg",
             participants: [1, 2], // user IDs
         },
         {
             id: 2,
             name: "Sports",
+            chatRoomPicture: "/chat-rooms/img11.jpg",
             participants: [1],
         },
     ]);
@@ -25,9 +27,11 @@ export const ChatRoomProvider = ({ children }) => {
         setChatRooms([...chatRooms, newRoom]);
     };
 
+    const getAllChatRooms = () => chatRooms;
+
     return (
         <ChatRoomContext.Provider
-            value={{ chatRooms, setChatRooms, createRoom }}>
+            value={{ chatRooms, getAllChatRooms, setChatRooms, createRoom }}>
             {children}
         </ChatRoomContext.Provider>
     );

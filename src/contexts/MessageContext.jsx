@@ -1,49 +1,40 @@
 import React, { createContext, useContext, useState } from "react";
+import initialMessage from "../data/messages";
 
 export const MessageContext = createContext();
 
 export const MessageProvider = ({ children }) => {
-    const [messages, setMessages] = useState([
-        {
-            id: 1,
-            senderId: 1,
-            receiverId: null,
-            roomId: 1,
-            text: "Hello, everyone!",
-            timestamp: "2024-08-09T12:00:00Z",
-        },
-        {
-            id: 2,
-            senderId: 2,
-            receiverId: null,
-            roomId: 1,
-            text: "Hi there!",
-            timestamp: "2024-08-09T12:01:00Z",
-        },
-        {
-            id: 3,
-            senderId: 1,
-            receiverId: 2,
-            roomId: null,
-            text: "Hey, how are you?",
-            timestamp: "2024-08-09T12:05:00Z",
-        },
-        {
-            id: 4,
-            senderId: 2,
-            receiverId: 1,
-            roomId: null,
-            text: "I'm good! You?",
-            timestamp: "2024-08-09T12:06:00Z",
-        },
-    ]);
+    const [messages, setMessages] = useState(initialMessage);
 
     const sendMessage = (newMessage) => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
 
+    const getMessagesByChatRoomId = (id) => {
+        return messages.filter((message) => message.roomId === id);
+    };
+
+    const addMessage = (text, senderId, chatRoomId) => {
+        const newMessage = {
+            id: messages.length + 1,
+            senderId,
+            receiverId: null,
+            roomId: chatRoomId,
+            text,
+            timestamp: new Date().toISOString(),
+        };
+        sendMessage(newMessage);
+    };
+
     return (
-        <MessageContext.Provider value={{ messages, setMessages, sendMessage }}>
+        <MessageContext.Provider
+            value={{
+                messages,
+                setMessages,
+                getMessagesByChatRoomId,
+                sendMessage,
+                addMessage,
+            }}>
             {children}
         </MessageContext.Provider>
     );
