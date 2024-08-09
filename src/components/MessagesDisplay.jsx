@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useMessageContext } from "../contexts/MessageContext";
 import { useUserContext } from "../contexts/UserContext";
@@ -14,6 +14,8 @@ const MessagesDisplay = () => {
 
     const [inputValue, setInputValue] = useState("");
 
+    const messagesEndRef = useRef(null);
+
     const onInputChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -26,12 +28,21 @@ const MessagesDisplay = () => {
         }
     };
 
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
     return (
         <div className="messages-display">
             <div className="messages-box">
                 {messages.map((message) => (
                     <Message key={message.id} message={message} />
                 ))}
+                <div ref={messagesEndRef} />
             </div>
             <div className="new-message-box">
                 <form
