@@ -1,37 +1,41 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { GoHomeFill } from "react-icons/go";
+import { HiChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+import { IoSettingsSharp } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <></>
-        // <nav className="nav">
-        //     <div className="container">
-        //         <h2 className="brand">
-        //             <Link className="nav-link" to="/">
-        //                 Track
-        //             </Link>
-        //         </h2>
-        //         <ul className="nav-list">
-        //             <li className="nav-item">
-        //                 <NavLink
-        //                     className="nav-link"
-        //                     to="/"
-        //                     end
-        //                     activeClassName="active">
-        //                     Home
-        //                 </NavLink>
-        //             </li>
-        //             <li className="nav-item">
-        //                 <NavLink
-        //                     className="nav-link"
-        //                     to="/transactions"
-        //                     activeClassName="active">
-        //                     Chat Rooms
-        //                 </NavLink>
-        //             </li>
-        //         </ul>
-        //     </div>
-        // </nav>
+        <nav className="navbar">
+            <ul className="nav-list">
+                <li className="nav-list-item">
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }>
+                        <GoHomeFill />
+                    </NavLink>
+                </li>
+                <li className="nav-list-item">
+                    <NavLink
+                        to="/chat-rooms"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }>
+                        <HiChatBubbleOvalLeftEllipsis />
+                    </NavLink>
+                </li>
+                <li className="nav-list-item">
+                    <NavLink
+                        to="/settings"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }>
+                        <IoSettingsSharp />
+                    </NavLink>
+                </li>
+            </ul>
+        </nav>
     );
 };
 

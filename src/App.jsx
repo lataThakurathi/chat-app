@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ChatRooms from "./components/ChatRooms";
-import Layout from "./components/Layout"; // Import the Layout component
+import Layout from "./components/Layout";
 import MessagesDisplay from "./components/MessagesDisplay";
 import { ChatRoomProvider } from "./contexts/ChatRoomContext";
 import { MessageProvider } from "./contexts/MessageContext";
@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />, // Wrap routes with Layout
+        element: <Layout />,
         children: [
             {
                 path: "/",
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/chat-rooms",
+                element: <ChatRooms />,
                 children: [
-                    { index: true, element: <ChatRooms /> },
                     {
                         path: ":id",
                         element: <MessagesDisplay />,

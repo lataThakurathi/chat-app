@@ -19,6 +19,7 @@ body {
 }
 #root {
     height: 100vh;
+    display: flex;
 }
 .main-container {
     height: 100%;
@@ -29,7 +30,7 @@ body {
 .chat-rooms-region,
 .messages-region {
     background-color: white;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 1rem;
 }
@@ -87,7 +88,7 @@ body {
     flex-direction: row-reverse;
 }
 .message.message-left .message-text {
-    background-color: deepskyblue;
+    background-color: hsl(216, 100%, 50%);
     color: #fff;
 }
 .message-text {
@@ -176,5 +177,33 @@ body {
 .send-icon {
     height: 100%;
     width: 100%;
-    color: rgba(0, 100, 255, 1);
+    color: hsl(216, 100%, 50%);
+}
+.navbar {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+}
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: gray;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 0.5rem;
+}
+.nav-link.active {
+    color: hsl(216, 100%, 50%);
+    background-color: hsla(216, 100%, 50%, 0.1);
+}
+.nav-link:hover {
+    background-color: #eee;
 }

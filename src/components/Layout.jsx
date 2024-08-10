@@ -1,25 +1,16 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import ChatRoom from "./ChatRoom";
 import { useChatRoomContext } from "../contexts/ChatRoomContext";
+import Navbar from "./Navbar";
 
 const Layout = () => {
-    useChatRoomContext;
     const { getAllChatRooms } = useChatRoomContext();
-    const chatRooms = getAllChatRooms();
 
     return (
-        <>
-            <div className="container main-container">
-                <aside className="chat-rooms-region">
-                    {chatRooms.map((chatRoom) => (
-                        <ChatRoom chatRoom={chatRoom} key={chatRoom.id} />
-                    ))}
-                </aside>
+        <div className="container main-container">
+            <Navbar />
 
-                <main className="messages-region">{<Outlet />}</main>
-            </div>
-        </>
+            {<Outlet />}
+        </div>
     );
 };
 
