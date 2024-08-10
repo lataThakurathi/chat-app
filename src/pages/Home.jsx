@@ -1,5 +1,5 @@
 import React from "react";
-import { useChatRoomContext } from "../contexts/ChatRoomContext";
+import { useChatRoomContext } from "../contexts/ChatRoomContextOld";
 
 const Home = () => {
     const { getAllChatRooms } = useChatRoomContext();

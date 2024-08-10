@@ -1,13 +1,10 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ChatRooms from "./components/ChatRooms";
 import Layout from "./components/Layout";
+import ChatRooms from "./pages/ChatRooms";
 import MessagesDisplay from "./components/MessagesDisplay";
-import { ChatRoomProvider } from "./contexts/ChatRoomContext";
-import { MessageProvider } from "./contexts/MessageContext";
-import { UserProvider } from "./contexts/UserContext";
-import Home from "./pages/Home";
-
+import { ChatRoomsProvider } from "./contexts/ChatRoomsContext";
+import { MessagesProvider } from "./contexts/MessagesContext";
+import { ActiveUserProvider } from "./contexts/ActiveUserContext";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -15,7 +12,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />,
+                element: <h1>Home</h1>,
             },
             {
                 path: "/chat-rooms",
@@ -29,11 +26,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <div>User Profile Page</div>,
+                element: <h1>User Profile Page</h1>,
             },
             {
                 path: "/settings",
-                element: <div>Settings Page</div>,
+                element: <h1>Settings Page</h1>,
             },
         ],
     },
@@ -41,13 +38,13 @@ const router = createBrowserRouter([
 
 const App = () => {
     return (
-        <UserProvider>
-            <ChatRoomProvider>
-                <MessageProvider>
+        <ActiveUserProvider>
+            <MessagesProvider>
+                <ChatRoomsProvider>
                     <RouterProvider router={router} />
-                </MessageProvider>
-            </ChatRoomProvider>
-        </UserProvider>
+                </ChatRoomsProvider>
+            </MessagesProvider>
+        </ActiveUserProvider>
     );
 };
 

@@ -1,28 +1,29 @@
 import React from "react";
-import { useUserContext } from "../contexts/UserContext";
+import { useActiveUserContext } from "../contexts/ActiveUserContext";
+import clsx from "clsx";
 import users from "../data/users";
 
-const Message = ({ message }) => {
-    const { currentUser } = useUserContext();
-    const isCurrentUser = currentUser.id === message.senderId;
+const Message = (props) => {
+    const { message } = props;
+
+    const { activeUser } = useActiveUserContext();
 
     const sender = users.find((user) => user.id === message.senderId);
 
-    const messageClassName = isCurrentUser
-        ? "message message-left"
-        : "message message-right";
-
     return (
-        <div className={messageClassName}>
+        <div
+            className={clsx(
+                "message",
+                message.senderId === activeUser.id
+                    ? "message-right"
+                    : "message-left"
+            )}>
             <img
                 src={sender.profilePicture}
-                alt="Profile"
-                className="profile-picture"
+                className="message-sender-image"
+                alt=""
             />
-            <div className="message-text">{message.text}</div>
-            {/* <div className="timestamp">
-                {new Date(message.timestamp).toLocaleTimeString()}
-            </div> */}
+            <p className="message-text">{message.text}</p>
         </div>
     );
 };

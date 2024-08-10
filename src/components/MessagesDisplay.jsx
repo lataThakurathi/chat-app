@@ -1,66 +1,60 @@
-import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useMessageContext } from "../contexts/MessageContext";
-import { useUserContext } from "../contexts/UserContext";
+import { useState } from "react";
+import { useMessagesContext } from "../contexts/MessagesContext";
+import Section from "./Section";
+import SectionFoot from "./SectionFoot";
+import SectionHead from "./SectionHead";
+import SectionMain from "./SectionMain";
+import SectionTitle from "./SectionTitle";
 import Message from "./Message";
+import AddItemBar from "./AddItemBar"; // Assuming this is your input bar component
 import { IoSendSharp } from "react-icons/io5";
 
 const MessagesDisplay = () => {
     const { id } = useParams();
-    const chatRoomId = parseInt(id);
-    const { getMessagesByChatRoomId, addMessage } = useMessageContext();
-    const { currentUser } = useUserContext(); // Assuming you have a useUserContext to get current user
-    const messages = getMessagesByChatRoomId(chatRoomId);
+    const roomId = parseInt(id);
 
-    const [inputValue, setInputValue] = useState("");
+    const { selectMessagesByChatRoomId, addMessage } = useMessagesContext();
+    const messages = selectMessagesByChatRoomId(roomId);
 
-    const messagesEndRef = useRef(null);
+    // State to manage the input value
+    const [newMessageText, setNewMessageText] = useState("");
 
-    const onInputChange = (e) => {
-        setInputValue(e.target.value);
-    };
-
-    const onAddFormSubmit = (e) => {
+    // Function to handle form submission for adding a new message
+    const handleAddMessage = (e) => {
         e.preventDefault();
-        if (inputValue.trim()) {
-            addMessage(inputValue, currentUser.id, chatRoomId); // Use currentUser id and chatRoomId
-            setInputValue(""); // Clear the input box after sending
+        if (newMessageText.trim()) {
+            addMessage(newMessageText, 1, roomId); // Assuming senderId is 1 for now
+            setNewMessageText(""); // Clear the input field
         }
     };
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Function to handle input change
+    const handleNewMessageInputChange = (e) => {
+        setNewMessageText(e.target.value);
     };
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
-
     return (
-        <div className="messages-display">
-            <div className="messages-box">
+        <Section className="messages-display-section">
+            <SectionHead className="messages-display-section-head">
+                <SectionTitle>Messages</SectionTitle>
+            </SectionHead>
+            <SectionMain className="messages-display-section-main">
                 {messages.map((message) => (
                     <Message key={message.id} message={message} />
                 ))}
-                <div ref={messagesEndRef} />
-            </div>
-            <div className="new-message-box">
-                <form
-                    onSubmit={onAddFormSubmit}
-                    className="input-form input-form-send">
-                    <input
-                        type="text"
-                        className="input-box"
-                        placeholder="Enter new message here"
-                        value={inputValue}
-                        onChange={onInputChange}
-                    />
+            </SectionMain>
+            <SectionFoot>
+                <AddItemBar
+                    onAddFormSubmit={handleAddMessage}
+                    inputValue={newMessageText}
+                    onInputChange={handleNewMessageInputChange}>
                     <button type="submit" className="btn btn-submit btn-send">
                         <IoSendSharp className="send-icon" />
                     </button>
-                </form>
-            </div>
-        </div>
+                </AddItemBar>
+            </SectionFoot>
+        </Section>
     );
 };
 
