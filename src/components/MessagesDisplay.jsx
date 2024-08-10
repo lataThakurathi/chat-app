@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMessagesContext } from "../contexts/MessagesContext";
 import Section from "./Section";
 import SectionFoot from "./SectionFoot";
@@ -9,6 +9,7 @@ import SectionTitle from "./SectionTitle";
 import Message from "./Message";
 import AddItemBar from "./AddItemBar"; // Assuming this is your input bar component
 import { IoSendSharp } from "react-icons/io5";
+import { useActiveUserContext } from "../contexts/ActiveUserContext";
 
 const MessagesDisplay = () => {
     const { id } = useParams();
@@ -17,22 +18,27 @@ const MessagesDisplay = () => {
     const { selectMessagesByChatRoomId, addMessage } = useMessagesContext();
     const messages = selectMessagesByChatRoomId(roomId);
 
-    // State to manage the input value
+    const { activeUser } = useActiveUserContext();
+
     const [newMessageText, setNewMessageText] = useState("");
 
-    // Function to handle form submission for adding a new message
     const handleAddMessage = (e) => {
         e.preventDefault();
         if (newMessageText.trim()) {
-            addMessage(newMessageText, 1, roomId); // Assuming senderId is 1 for now
-            setNewMessageText(""); // Clear the input field
+            addMessage(newMessageText, activeUser.id, roomId);
+            setNewMessageText("");
         }
     };
 
-    // Function to handle input change
     const handleNewMessageInputChange = (e) => {
         setNewMessageText(e.target.value);
     };
+
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     return (
         <Section className="messages-display-section">
@@ -43,6 +49,7 @@ const MessagesDisplay = () => {
                 {messages.map((message) => (
                     <Message key={message.id} message={message} />
                 ))}
+                <div ref={messagesEndRef}></div>
             </SectionMain>
             <SectionFoot>
                 <AddItemBar
